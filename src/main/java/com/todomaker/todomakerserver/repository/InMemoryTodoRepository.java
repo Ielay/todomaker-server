@@ -41,7 +41,7 @@ public class InMemoryTodoRepository implements TodoRepository {
     }
 
     @Override
-    public List<TodoEntity> getAll() {
+    public List<TodoEntity> findAll() {
         return new ArrayList<>(inMemoryStorage);
     }
 }
