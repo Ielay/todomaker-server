@@ -18,5 +18,7 @@ public class TodoEntity {
 
     private String todoText;
 
-    private LocalDate todoDay;
+    private LocalDate todoDate;
+
+    private Boolean isCompleted;
 }
