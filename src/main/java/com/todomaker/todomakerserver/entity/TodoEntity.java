@@ -2,6 +2,7 @@ package com.todomaker.todomakerserver.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@ToString
 public class TodoEntity {
 
     public TodoEntity() {

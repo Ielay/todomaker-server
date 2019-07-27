@@ -1,13 +1,13 @@
 package com.todomaker.todomakerserver.repository;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 import com.todomaker.todomakerserver.entity.TodoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author petrov
@@ -16,7 +16,9 @@ import java.util.List;
 @Repository
 public class InMemoryTodoRepository implements TodoRepository {
 
-    private final List<TodoEntity> inMemoryStorage = new ArrayList<>(3);
+    private final Set<TodoEntity> inMemoryStorage = new HashSet<>(3);
+
+    private Long lastUsedId = 3L;
 
     @Autowired
     public InMemoryTodoRepository() {
@@ -41,8 +43,94 @@ public class InMemoryTodoRepository implements TodoRepository {
         });
     }
 
+    @NotNull
     @Override
     public List<TodoEntity> findAll() {
         return new ArrayList<>(inMemoryStorage);
+    }
+
+    @Nullable
+    @Override
+    public TodoEntity findById(Long todoId) {
+        for (TodoEntity todo : inMemoryStorage) {
+            if (todo.getId().equals(todoId)) {
+                return todo;
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Long save(TodoEntity savedEntity) {
+        savedEntity.setId(++lastUsedId);
+
+        boolean todoWasAdded = inMemoryStorage.add(savedEntity);
+
+        if (!todoWasAdded) {
+            return null;
+        }
+
+        return lastUsedId;
+    }
+
+    @Nullable
+    @Override
+    public TodoEntity update(TodoEntity updatedEntity) {
+        Iterator<TodoEntity> iter = inMemoryStorage.iterator();
+
+        boolean oldTodoWasRemoved = false;
+        while (iter.hasNext()) {
+            TodoEntity storagedTodo = iter.next();
+            if (storagedTodo.getId().equals(updatedEntity.getId())) {
+                iter.remove();
+
+                oldTodoWasRemoved = true;
+                break;
+            }
+        }
+
+        if (!oldTodoWasRemoved) {
+            return null;
+        }
+
+        inMemoryStorage.add(updatedEntity);
+
+        return updatedEntity;
+    }
+
+    @Nullable
+    @Override
+    public Long delete(TodoEntity deletedEntity) {
+        boolean todoWasRemoved = inMemoryStorage.remove(deletedEntity);
+
+        if (todoWasRemoved) {
+            return deletedEntity.getId();
+        }
+
+        return null;
+    }
+
+    @Override
+    public Long deleteById(Long todoId) {
+        Iterator<TodoEntity> iter = inMemoryStorage.iterator();
+
+        boolean oldTodoWasRemoved = false;
+        while (iter.hasNext()) {
+            TodoEntity storagedTodo = iter.next();
+            if (storagedTodo.getId().equals(todoId)) {
+                iter.remove();
+
+                oldTodoWasRemoved = true;
+                break;
+            }
+        }
+
+        if (!oldTodoWasRemoved) {
+            return null;
+        }
+
+        return todoId;
     }
 }
