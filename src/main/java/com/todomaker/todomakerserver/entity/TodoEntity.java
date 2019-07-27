@@ -14,9 +14,15 @@ import java.time.LocalDate;
 @Setter
 public class TodoEntity {
 
+    public TodoEntity() {
+        
+    }
+
     private Long id;
 
     private String todoText;
 
-    private LocalDate todoDay;
+    private LocalDate todoDate;
+
+    private Boolean isCompleted;
 }

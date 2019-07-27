@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface TodoRepository {
 
-    List<TodoEntity> getAll();
+    List<TodoEntity> findAll();
 }

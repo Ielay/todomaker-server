@@ -34,14 +34,15 @@ public class InMemoryTodoRepository implements TodoRepository {
             TodoEntity todo = new TodoEntity();
             todo.setId((Long) params.get(0));
             todo.setTodoText((String) params.get(1));
-            todo.setTodoDay((LocalDate) params.get(2));
+            todo.setTodoDate((LocalDate) params.get(2));
+            todo.setIsCompleted(false);
 
             inMemoryStorage.add(todo);
         });
     }
 
     @Override
-    public List<TodoEntity> getAll() {
+    public List<TodoEntity> findAll() {
         return new ArrayList<>(inMemoryStorage);
     }
 }
