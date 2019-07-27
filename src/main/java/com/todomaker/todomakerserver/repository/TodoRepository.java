@@ -1,7 +1,7 @@
 package com.todomaker.todomakerserver.repository;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.todomaker.todomakerserver.entity.TodoEntity;
 
 import java.util.List;
