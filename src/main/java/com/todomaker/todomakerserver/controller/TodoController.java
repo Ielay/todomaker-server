@@ -1,5 +1,6 @@
 package com.todomaker.todomakerserver.controller;
 
+import com.todomaker.todomakerserver.dto.TodoDTO;
 import com.todomaker.todomakerserver.entity.TodoEntity;
 import com.todomaker.todomakerserver.service.TodoService;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class TodoController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<List<TodoEntity>> getAllTodos() {
+    public ResponseEntity<List<TodoDTO>> getAllTodos() {
         return new ResponseEntity<>(
                 todoService.getAll(),
                 HttpStatus.OK

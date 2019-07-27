@@ -1,6 +1,6 @@
 package com.todomaker.todomakerserver.service;
 
-import com.todomaker.todomakerserver.entity.TodoEntity;
+import com.todomaker.todomakerserver.dto.TodoDTO;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface TodoService {
 
-    List<TodoEntity> getAll();
+    List<TodoDTO> getAll();
 }

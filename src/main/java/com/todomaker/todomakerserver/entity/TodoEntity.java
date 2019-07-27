@@ -14,6 +14,10 @@ import java.time.LocalDate;
 @Setter
 public class TodoEntity {
 
+    public TodoEntity() {
+        
+    }
+
     private Long id;
 
     private String todoText;
